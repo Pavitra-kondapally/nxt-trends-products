@@ -31,7 +31,7 @@ const FiltersGroup = props => {
             onClick={() => onClickCategory(eachCategory.categoryId)}
             key={eachCategory.categoryId}
           >
-            {eachCategory.name}
+            <p>{eachCategory.name}</p>
           </li>
         ))}
       </ul>
@@ -46,7 +46,7 @@ const FiltersGroup = props => {
             <img
               src={eachRating.imageUrl}
               className="rating-image"
-              alt="rating {ratingId}"
+              alt={`rating ${eachRating.ratingId}`}
             />
           </button>
         ))}

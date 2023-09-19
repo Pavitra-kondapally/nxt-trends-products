@@ -107,17 +107,17 @@ class AllProductsSection extends Component {
         imageUrl: product.image_url,
         rating: product.rating,
       }))
-      this.setState(
-        {
-          productsList: updatedData,
-          isLoading: false,
-          isError: false,
-        },
-        this.getProducts,
-      )
-    }
-    if (response.status === 401) {
-      this.setState({isError: true})
+      this.setState({
+        productsList: updatedData,
+        isLoading: false,
+        isError: false,
+      })
+    } else {
+      // Set isError state to true when the request fails
+      this.setState({
+        isError: true,
+        isLoading: false,
+      })
     }
   }
 
@@ -132,24 +132,35 @@ class AllProductsSection extends Component {
   }
 
   clickingClearFilters = () => {
-    this.setState({
-      category: '', // Add category filter state
-      rating: '', // Add rating filter state
-      titleSearch: '',
-    })
+    this.setState(
+      {
+        activeOptionId: sortbyOptions[0].optionId,
+        category: '', // Add category filter state
+        rating: '', // Add rating filter state
+        titleSearch: '',
+      },
+      this.getProducts,
+    )
   }
 
   onSelectingCategory = categoryId => {
-    const categoryItem = categoryOptions.find(
-      eachCategory => eachCategory.categoryId === categoryId,
+    this.setState(
+      {
+        category: categoryId,
+      },
+      this.getProducts,
     )
-    this.setState({
-      category: categoryItem.name,
-    })
   }
 
   onSelectingRating = ratingId => {
-    this.setState({rating: ratingId})
+    this.setState({rating: ratingId}, this.getProducts)
+  }
+
+  searchingInput = event => {
+    if (event.key === 'Enter') {
+      event.preventDefault() // Prevent form submission (if in a form)
+      this.getProducts() // Call the function to make the GET request
+    }
   }
 
   renderProductsList = () => {
@@ -204,6 +215,7 @@ class AllProductsSection extends Component {
           changeSortby={this.changeSortby}
           titleSearch={titleSearch}
           changingTitleSearch={this.changingTitleSearch}
+          searchingInput={this.searchingInput}
         />
         <div className="bottom-container">
           <FiltersGroup

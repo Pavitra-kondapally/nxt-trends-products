@@ -12,3 +12,19 @@
 }
 
 /* Write your CSS here */
+.category-list {
+  list-style: none;
+}
+.rating-btn {
+  border-style: none;
+}
+.rating-image {
+  height: 20px;
+  width: 120px;
+}
+.clear-filter-btn {
+  border-radius: 5px;
+  border-color: #0967d2;
+  color: #0967d2;
+  background-color: transparent;
+}

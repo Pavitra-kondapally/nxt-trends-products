@@ -8,6 +8,7 @@ const ProductsHeader = props => {
     activeOptionId,
     titleSearch,
     changingTitleSearch,
+    searchingInput,
   } = props
 
   const onChangeSortby = event => {
@@ -19,6 +20,10 @@ const ProductsHeader = props => {
     changingTitleSearch(event)
   }
 
+  const handleKeyPress = event => {
+    searchingInput(event)
+  }
+
   return (
     <div className="products-header">
       <input
@@ -26,6 +31,8 @@ const ProductsHeader = props => {
         className="search-box"
         value={titleSearch}
         onChange={onChangeSearch}
+        placeholder="Search"
+        onKeyDown={handleKeyPress}
       />
       <h1 className="products-list-heading">All Products</h1>
       <div className="sort-by-container">
